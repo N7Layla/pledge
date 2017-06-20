@@ -61,7 +61,7 @@ describe('The `$Promise` class', function(){
     nonFunctions.forEach(function (nonFunction) {
       expect(callingNewPromiseWith(nonFunction)).toThrowError(
         TypeError,
-        /.*executor.*function/i // any error message containing "executor" and later "function"
+        /executor.+function/i // any error message containing "executor" and later "function"
       );
     });
     function callingNewPromiseWith (argument) {
