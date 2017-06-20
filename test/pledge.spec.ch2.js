@@ -23,6 +23,8 @@ Chapter 2: Attaching and Calling Promise Event Handlers
 
 /* global $Promise */
 
+function noop () {}
+
 // `then` is the core of promise behavior. In fact, the P/A+ spec which forms
 // the underpinnings of the ES6 spec only covers this method. The `then`
 // function is used to register *handlers* if and when the promise either
@@ -32,7 +34,7 @@ describe("A promise's `.then` method", function(){
 
   var promise, s1, e1, s2, e2;
   beforeEach(function(){
-    promise = new $Promise();
+    promise = new $Promise(noop);
     s1 = function (/* data */)   { /* use data */ };
     e1 = function (/* reason */) { /* handle reason */ };
     s2 = function (/* data */)   { /* use data */ };
@@ -78,7 +80,7 @@ describe('A promise', function(){
     foo += num;
   });
   beforeEach(function(){
-    promiseForNum = new $Promise();
+    promiseForNum = new $Promise(noop);
     foo = 0;
     setFoo10.calls.reset();
     addToFoo.calls.reset();
