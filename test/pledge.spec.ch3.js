@@ -22,6 +22,8 @@ Chapter 3: Completing the Handlers: Rejection & Catch
 
 /* global $Promise */
 
+function noop () {}
+
 describe('Another promise', function(){
 
   var promiseForThing, log;
@@ -32,7 +34,7 @@ describe('Another promise', function(){
     log.push(input);
   });
   beforeEach(function(){
-    promiseForThing = new $Promise();
+    promiseForThing = new $Promise(noop);
     log = [];
     logOops.calls.reset();
     logInput.calls.reset();
@@ -163,7 +165,7 @@ describe("A promise's `.catch` method", function(){
 
   var promise;
   beforeEach(function(){
-     promise = new $Promise();
+     promise = new $Promise(noop);
      spyOn( promise, 'then' ).and.callThrough();
   });
   function myFunc (reason) { console.log(reason); }

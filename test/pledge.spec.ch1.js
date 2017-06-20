@@ -45,9 +45,30 @@ describe('The `$Promise` class', function(){
     expect( typeof $Promise ).toBe( 'function' );
   });
 
-  xit('returns a new promise instance', function(){
-    var promise = new $Promise();
+  // The only argument to a promise constructor is a function called the
+  // "executor". We will circle back to this function later.
+
+  xit('can be called with a function argument (the "executor"), returning a new promise instance', function(){
+    var executor = function () {};
+    var promise = new $Promise(executor);
     expect( promise instanceof $Promise ).toBe( true );
+  });
+
+  // This type check mimics the strictness of real ES6 Promises.
+
+  xit('throws a descriptive type error if called with no function argument', function(){
+    var nonFunctions = [null, 'bonjour', undefined, 452, {}, false];
+    nonFunctions.forEach(function (nonFunction) {
+      expect(callingNewPromiseWith(nonFunction)).toThrowError(
+        TypeError,
+        /executor.+function/i // any error message containing "executor" and later "function"
+      );
+    });
+    function callingNewPromiseWith (argument) {
+      return function mightThrowError () {
+        var promise = new $Promise(argument); // eslint-disable-line no-unused-vars
+      };
+    }
   });
 
 });
@@ -56,7 +77,8 @@ describe('A promise instance', function(){
 
   var promise;
   beforeEach(function(){
-    promise = new $Promise();
+    var executor = function () {};
+    promise = new $Promise(executor);
   });
 
   // Promises internally hold some state (changing information), which in turn
@@ -277,7 +299,7 @@ describe('The executor function', function(){
       });
       // Can we mess up the state?
       rejector('No! Try not. Do. Or do not. There is no try.');
-      promise._internalReject("I don't believe xit!");
+      promise._internalReject("I don't believe it!");
       promise._internalResolve('That is why you fail.');
       // Nope, `reject` either is or uses `._internalResolve`.
       expect( promise._state ).toBe( 'rejected' );

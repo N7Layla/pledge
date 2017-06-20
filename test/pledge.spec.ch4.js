@@ -28,11 +28,13 @@ Chapter 4: Promises Can Return Values and Chain Together
 /* global $Promise customMatchers */
 /* eslint no-throw-literal: 0 */
 
+function noop () {}
+
 describe('For a given promiseA (pA)', function(){
 
   var promiseA, thisReturnsHi, thisThrowsShade;
   beforeEach(function(){
-    promiseA = new $Promise();
+    promiseA = new $Promise(noop);
     thisReturnsHi = function () { return 'hi'; };
     thisThrowsShade = function () { throw 'shade'; };
   });
@@ -138,7 +140,7 @@ describe('For a given promiseA (pA)', function(){
     // pZ's behavior — aka assimilation. These four tests are brain-benders.
 
     xit("if pA's success handler returns promiseZ which fulfills, pB mimics pZ", function (done) {
-      var promiseZ = new $Promise();
+      var promiseZ = new $Promise(noop);
       var promiseB = promiseA.then(function(){
         return promiseZ;
       });
@@ -148,7 +150,7 @@ describe('For a given promiseA (pA)', function(){
     }, FAST_TIMEOUT);
 
     xit("if pA's error handler returns promiseZ which fulfills, pB mimics pZ", function (done) {
-      var promiseZ = new $Promise();
+      var promiseZ = new $Promise(noop);
       var promiseB = promiseA.catch(function(){
         return promiseZ;
       });
@@ -158,7 +160,7 @@ describe('For a given promiseA (pA)', function(){
     }, FAST_TIMEOUT);
 
     xit("if pA's success handler returns promiseZ which rejects, pB mimics pZ", function (done) {
-      var promiseZ = new $Promise();
+      var promiseZ = new $Promise(noop);
       var promiseB = promiseA.then(function(){
         return promiseZ;
       });
@@ -168,7 +170,7 @@ describe('For a given promiseA (pA)', function(){
     }, FAST_TIMEOUT);
 
     xit("if pA's error handler returns promiseZ which rejects, pB mimics pZ", function (done) {
-      var promiseZ = new $Promise();
+      var promiseZ = new $Promise(noop);
       var promiseB = promiseA.catch(function(){
         return promiseZ;
       });
