@@ -41,7 +41,7 @@ describe("A promise's `.then` method", function(){
     e2 = function (/* reason */) { /* handle reason */ };
   });
 
-  xit('adds groups of handlers (callback functions) to the promise', function(){
+  it('adds groups of handlers (callback functions) to the promise', function(){
     promise.then( s1, e1 );
     expect( promise._handlerGroups[0].successCb ).toBe( s1 );
     expect( promise._handlerGroups[0].errorCb   ).toBe( e1 );
@@ -50,7 +50,7 @@ describe("A promise's `.then` method", function(){
   // This is calling `then` on the same promise multiple times, which is NOT
   // the same as "chaining." We'll deal with promise chaining in Ch. 4.
 
-  xit('can be called multiple times to add more handlers', function(){
+  it('can be called multiple times to add more handlers', function(){
     promise.then( s1, e1 );
     expect( promise._handlerGroups[0].successCb ).toBe( s1 );
     expect( promise._handlerGroups[0].errorCb   ).toBe( e1 );
